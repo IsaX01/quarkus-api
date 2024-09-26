@@ -24,4 +24,8 @@ public class Role extends PanacheEntity {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    public String getRoleName() {
+        return this.roleName;
+    }
 }
