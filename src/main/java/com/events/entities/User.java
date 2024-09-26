@@ -3,11 +3,11 @@ package com.events.entities;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
 @Table(name = "users")
-public class User extends PanacheEntity { 
+public class User extends PanacheEntityBase { 
 
     @Id
     @GeneratedValue

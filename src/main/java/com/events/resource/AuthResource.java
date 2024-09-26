@@ -8,9 +8,9 @@ import jakarta.ws.rs.core.Response;
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
-import com.events.repositories.*;
-import com.events.entities.*;
-import com.events.services.*;
+import com.events.repositories.UserRepository;
+import com.events.entities.User;
+import com.events.services.PasswordUtils;
 
 @Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
