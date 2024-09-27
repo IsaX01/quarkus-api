@@ -31,7 +31,7 @@ public class AuthResource {
                     .groups(getRoles(user))
                     .expiresIn(Duration.ofHours(24))
                     .sign();
-            return Response.ok(new TokenResponse(token)).build();
+            return Response.ok(new TokenResponse(token)).entity(user).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }

@@ -2,7 +2,6 @@ package com.events.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
@@ -31,7 +30,7 @@ public class Inventory extends PanacheEntityBase {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private ProductCategory category;
+    private InventoryCategory category;
 
     @Column(name = "location")
     private String location;

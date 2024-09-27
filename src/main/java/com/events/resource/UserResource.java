@@ -23,6 +23,9 @@ public class UserResource {
     @Inject
     UserRepository userRepository;
 
+    @Inject
+    RoleRepository roleRepository;
+
     @GET
     @RolesAllowed({"admin"})
     public List<User> getAllUsers() {
@@ -38,10 +41,22 @@ public class UserResource {
 
     @POST
     @Transactional
-    @RolesAllowed({"admin"})
+    // @RolesAllowed({"admin"})
     public Response createUser(User user) {
+        Role role = roleRepository.findById(user.getRoleId());
+        if (role == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("RoleId invalid").build();
+        }
+    
+        user.setUsername(user.getUsername());
+        user.setEmail(user.getEmail());
+        user.setFirstName(user.getFirstName());
+        user.setLastName(user.getLastName());
+        user.setRole(role);
+    
         user.setPasswordHash(PasswordUtils.hashPassword(user.getPasswordHash()));
         userRepository.persist(user);
+    
         return Response.status(Response.Status.CREATED).build();
     }
 
