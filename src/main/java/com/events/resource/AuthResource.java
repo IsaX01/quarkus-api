@@ -11,6 +11,7 @@ import java.util.Set;
 import com.events.repositories.UserRepository;
 import com.events.entities.User;
 import com.events.services.PasswordUtils;
+import com.events.helpers.LoginResponse;;
 
 @Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,14 +32,16 @@ public class AuthResource {
                     .groups(getRoles(user))
                     .expiresIn(Duration.ofHours(24))
                     .sign();
-            return Response.ok(new TokenResponse(token)).entity(user).build();
+
+                    LoginResponse response = new LoginResponse(token, user.getUsername(), user.getRole().getRoleName());
+                    
+            return Response.ok(response).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 
     private boolean verifyPassword(String password, String passwordHash) {
-        // Implement password verification logic (e.g., using bcrypt)
         return PasswordUtils.verifyPassword(password, passwordHash);
     }
 

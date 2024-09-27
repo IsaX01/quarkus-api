@@ -16,10 +16,10 @@ public class Inventory extends PanacheEntityBase {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "serial_number")
-    private String serialNumber;
+    @Column(nullable = true)
+    private String description;
 
-    @Column(name = "stock_quantity")
+    @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity;
 
     @Column(name = "maintenance_status")
@@ -28,7 +28,7 @@ public class Inventory extends PanacheEntityBase {
     @Column(name = "is_available")
     private Boolean isAvailable;
 
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(name = "category_id")
     private InventoryCategory category;
 
