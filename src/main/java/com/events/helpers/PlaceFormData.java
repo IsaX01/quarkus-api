@@ -1,25 +1,25 @@
 package com.events.helpers;
 
-import org.jboss.resteasy.reactive.multipart.FileUpload;
-import org.jboss.resteasy.reactive.RestForm;
+// import org.jboss.resteasy.reactive.multipart.FileUpload;
+// import org.jboss.resteasy.reactive.RestForm;
 
-import java.util.List;
+// import java.util.List;
 
-public class PlaceFormData {
+// public class PlaceFormData {
 
-    @RestForm
-    public String placeName;
+//     @RestForm
+//     public String placeName;
 
-    @RestForm
-    public String description;
+//     @RestForm
+//     public String description;
 
-    @RestForm
-    public String about;
+//     @RestForm
+//     public String about;
 
-    @RestForm
-    public List<FileUpload> images;
+//     @RestForm
+//     public List<FileUpload> images;
 
-    // @FormParam("imageFileNames")
-    // @PartType("text/plain")
-    // public List<String> imageFileNames;
-}
+//     // @FormParam("imageFileNames")
+//     // @PartType("text/plain")
+//     // public List<String> imageFileNames;
+// }

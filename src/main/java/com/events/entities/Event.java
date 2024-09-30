@@ -32,9 +32,6 @@ public class Event extends PanacheEntityBase{
     @Column(name = "end_time")
     private LocalTime endTime;
 
-    @Column(name = "location")
-    private String location;
-
     @Column(name = "capacity")
     private Integer capacity;
 

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
@@ -23,8 +25,14 @@ public class Places extends PanacheEntityBase{
     @Column(nullable = true)
     private String about;
 
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PlacesImages> images;
+    @Column(name = "location")
+    private String location;
+
+    @Column(nullable = true)
+    private String image;
+
+    @Column(nullable = true)
+    private String image_path;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -32,8 +40,13 @@ public class Places extends PanacheEntityBase{
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Review> reviews;
+
+    public void setUpdatedAt(LocalDateTime updateAt){
+        this.updatedAt = updateAt;
+    }
 
     public Long getId() {
         return id;
@@ -67,6 +80,7 @@ public class Places extends PanacheEntityBase{
         this.about = about;
     }
 
+    @JsonIgnore
     public double getAverageRating() {
         return reviews.stream()
         .mapToInt(Review::getStars)
@@ -74,15 +88,25 @@ public class Places extends PanacheEntityBase{
         .orElse(0.0); 
     }
 
+    @JsonIgnore
     public long getReviewCount() {
         return reviews.size(); 
     }
 
-    public List<PlacesImages> getImages() {
-        return images;
+    public String getImage() {
+        return image;
+    }
+    
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public void setImages(List<PlacesImages> images) {
-        this.images = images;
+    public String getLocation() {
+        return location;
     }
+    
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
 }

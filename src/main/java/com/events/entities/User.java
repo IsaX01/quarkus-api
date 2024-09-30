@@ -53,6 +53,14 @@ public class User extends PanacheEntityBase {
 
     private Long roleId;
 
+    public UUID getId(){
+        return this.id;
+     }
+ 
+     public void setId(UUID id){
+         this.id = id;
+     }
+
     public String getUsername(){
        return this.username;
     }
@@ -112,5 +120,13 @@ public class User extends PanacheEntityBase {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Boolean getIsActive(){
+        return this.isActive;
+    }
+
+    public void setIsActive(Boolean isActive){
+        this.isActive = isActive;
     }
 }
