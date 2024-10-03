@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
@@ -45,11 +46,21 @@ public class Event extends PanacheEntityBase{
     @JoinColumn(name = "created_by")
     private User createdBy;
 
+    private UUID userId;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    public UUID getUserId(){
+        return this.userId;
+    }
+ 
+    public void setUserId (UUID userId){
+        this.userId = userId;
+    }
 
     public void setCreatedBy(User createdBy){
         this.createdBy = createdBy;

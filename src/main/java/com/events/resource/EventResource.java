@@ -29,14 +29,14 @@ public class EventResource {
     UserRepository userRepository;
 
     @GET
-    @RolesAllowed({"admin", "event_manager"})
+    // @RolesAllowed({"admin", "event_manager"})
     public List<Event> getAllEvents() {
         return eventRepository.listAll();
     }
 
     @GET
     @Path("{id}")
-    @RolesAllowed({"admin", "event_manager", "user"})
+    // @RolesAllowed({"admin", "event_manager", "user"})
     public Event getEvent(@PathParam("id") Long id) {
         Event event = eventRepository.findById(id);
         if (event == null) {
@@ -47,7 +47,7 @@ public class EventResource {
 
     @POST
     @Transactional
-    @RolesAllowed({"admin", "event_manager", "user"})
+    // @RolesAllowed({"admin", "event_manager", "user"})
     public Response createEvent(Event event, @Context SecurityContext securityContext) {
         Principal principal = securityContext.getUserPrincipal();
         User user = userRepository.findByUsername(principal.getName());
@@ -59,7 +59,7 @@ public class EventResource {
     @PUT
     @Path("{id}")
     @Transactional
-    @RolesAllowed({"admin", "event_manager", "user"})
+    // @RolesAllowed({"admin", "event_manager", "user"})
     public Response updateEvent(@PathParam("id") Long id, Event event) {
         Event entity = eventRepository.findById(id);
         if (entity == null) {
@@ -75,7 +75,7 @@ public class EventResource {
     @DELETE
     @Path("{id}")
     @Transactional
-    @RolesAllowed({"admin", "event_manager", "user"})
+    // @RolesAllowed({"admin", "event_manager", "user"})
     public Response deleteEvent(@PathParam("id") Long id) {
         Event entity = eventRepository.findById(id);
         if (entity == null) {

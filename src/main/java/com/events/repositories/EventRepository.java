@@ -6,5 +6,7 @@ import com.events.entities.Event;
 
 @ApplicationScoped
 public class EventRepository implements PanacheRepository<Event> {
-
+    public Event findById(long id){
+        return find("id", id).firstResult();
+    }
 }
