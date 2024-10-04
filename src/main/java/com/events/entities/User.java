@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.events.services.RoleDeserializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -24,6 +26,7 @@ public class User extends PanacheEntityBase {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @JsonIgnore
     @JsonProperty("password")
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;

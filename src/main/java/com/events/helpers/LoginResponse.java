@@ -1,25 +1,22 @@
 package com.events.helpers;
 
+import com.events.entities.User;
+
 public class LoginResponse {
     private String token;
-    private String username;
-    private String roleName;
+    private User user;
 
-    public LoginResponse(String token, String username, String roleName) {
+    public LoginResponse(String token, User user2) {
         this.token = token;
-        this.username = username;
-        this.roleName = roleName;
+        this.user = user2;
     }
 
     public String getToken() {
         return token;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public String getRoleName() {
-        return roleName;
-    }
 }

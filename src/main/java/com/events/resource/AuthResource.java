@@ -25,7 +25,7 @@ public class AuthResource {
     @Path("/login")
     public Response login(Credentials credentials) {
         User user = userRepository.findByUsername(credentials.username);
-
+        
         if (user != null && verifyPassword(credentials.password, user.getPasswordHash())) {
             String token = Jwt.issuer("https://X-Events.com")
                     .upn(user.getUsername())
@@ -33,7 +33,7 @@ public class AuthResource {
                     .expiresIn(Duration.ofHours(24))
                     .sign();
 
-                    LoginResponse response = new LoginResponse(token, user.getUsername(), user.getRole().getRoleName());
+                    LoginResponse response = new LoginResponse(token, user);
                     
             return Response.ok(response).build();
         } else {
