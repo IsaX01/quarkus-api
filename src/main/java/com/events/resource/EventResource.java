@@ -14,7 +14,9 @@ import java.security.Principal;
 
 import com.events.entities.Event;
 import com.events.entities.User;
+import com.events.entities.Places;
 import com.events.repositories.EventRepository;
+import com.events.repositories.PlacesRepository;
 import com.events.repositories.UserRepository;
 
 @Path("/api/events")
@@ -27,6 +29,9 @@ public class EventResource {
 
     @Inject
     UserRepository userRepository;
+
+    @Inject
+    PlacesRepository placesRepository;
 
     @GET
     // @RolesAllowed({"admin", "event_manager"})
@@ -49,9 +54,12 @@ public class EventResource {
     @Transactional
     // @RolesAllowed({"admin", "event_manager", "user"})
     public Response createEvent(Event event, @Context SecurityContext securityContext) {
-        Principal principal = securityContext.getUserPrincipal();
-        User user = userRepository.findByUsername(principal.getName());
+        // Principal principal = securityContext.getUserPrincipal();
+        User user = userRepository.findById(event.getUserId());
         event.setCreatedBy(user);
+        Places place = placesRepository.findById(event.getPlaceId());
+        event.setPlace(place);
+        event.setPlaceId(event.getPlaceId());
         eventRepository.persist(event);
         return Response.status(Response.Status.CREATED).entity(event).build();
     }
