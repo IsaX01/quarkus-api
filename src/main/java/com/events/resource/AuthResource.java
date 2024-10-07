@@ -2,6 +2,7 @@ package com.events.resource;
 
 import io.smallrye.jwt.build.Jwt;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -23,10 +24,14 @@ public class AuthResource {
 
     @POST
     @Path("/login")
+    @Transactional
     public Response login(Credentials credentials) {
         User user = userRepository.findByUsername(credentials.username);
         
         if (user != null && verifyPassword(credentials.password, user.getPasswordHash())) {
+            user.setDeviceToken(credentials.deviceToken);
+            user.persist();
+
             String token = Jwt.issuer("https://X-Events.com")
                     .upn(user.getUsername())
                     .groups(getRoles(user))
@@ -55,6 +60,7 @@ public class AuthResource {
     public static class Credentials {
         public String username;
         public String password;
+        public String deviceToken;
     }
 
     public static class TokenResponse {

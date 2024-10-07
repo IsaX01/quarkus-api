@@ -11,6 +11,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import java.util.List;
 import java.security.Principal;
+import java.time.format.DateTimeFormatter;
 
 import com.events.entities.Event;
 import com.events.entities.User;
@@ -18,6 +19,11 @@ import com.events.entities.Places;
 import com.events.repositories.EventRepository;
 import com.events.repositories.PlacesRepository;
 import com.events.repositories.UserRepository;
+import com.events.services.NotificationClient;
+import com.events.services.NotificationData;
+import org.jboss.logging.Logger;
+import io.vertx.core.json.JsonObject;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @Path("/api/events")
 @Produces(MediaType.APPLICATION_JSON)
@@ -33,6 +39,11 @@ public class EventResource {
     @Inject
     PlacesRepository placesRepository;
 
+    @Inject
+    @RestClient
+    NotificationClient notificationClient;
+
+    private static final Logger LOG = Logger.getLogger(EventResource.class);
     @GET
     // @RolesAllowed({"admin", "event_manager"})
     public List<Event> getAllEvents() {
@@ -50,7 +61,7 @@ public class EventResource {
         return event;
     }
 
-    @POST
+    @POST 
     @Transactional
     // @RolesAllowed({"admin", "event_manager", "user"})
     public Response createEvent(Event event, @Context SecurityContext securityContext) {
@@ -60,6 +71,22 @@ public class EventResource {
         Places place = placesRepository.findById(event.getPlaceId());
         event.setPlace(place);
         event.setPlaceId(event.getPlaceId());
+        
+        NotificationData notificationData = new NotificationData();
+        notificationData.setName(event.getName());
+        notificationData.setDescription(event.getDescription());
+        notificationData.setPlace(place.getPlaceName());
+        notificationData.setDate(event.getStartDate().toString());
+        notificationData.setStartDate(event.getStartDate().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        notificationData.setEndDate(event.getEndDate().format( DateTimeFormatter.ofPattern("yyyyMMdd")));
+        notificationData.setDeviceToken(user.getDeviceToken()); 
+        LOG.infof("Token %s", user.getDeviceToken());
+        try {
+            notificationClient.sendNotification(notificationData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         eventRepository.persist(event);
         return Response.status(Response.Status.CREATED).entity(event).build();
     }

@@ -55,6 +55,15 @@ public class User extends PanacheEntityBase {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     private Long roleId;
+    private String deviceToken;
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
 
     public UUID getId(){
         return this.id;
