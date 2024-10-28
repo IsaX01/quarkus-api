@@ -70,7 +70,7 @@ jobs:
       - name: Build and push application Docker image
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: src/main/docker
           push: true
           tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/app:latest
           no-cache: true
