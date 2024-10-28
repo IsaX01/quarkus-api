@@ -76,7 +76,7 @@ public class EventResource {
         notificationData.setName(event.getName());
         notificationData.setDescription(event.getDescription());
         notificationData.setPlace(place.getPlaceName());
-        notificationData.setDate(event.getStartDate().toString());
+        notificationData.setDate(event.getStartDate().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         notificationData.setStartDate(event.getStartDate().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         notificationData.setEndDate(event.getEndDate().format( DateTimeFormatter.ofPattern("yyyyMMdd")));
         notificationData.setDeviceToken(user.getDeviceToken()); 
