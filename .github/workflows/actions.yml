@@ -75,7 +75,7 @@ jobs:
 
       - name: Build and push application Docker image
         run: |
-          docker build -f src/main/docker/Dockerfile.jvm -t quarkus/quarkus-api-jvm .
+          docker build -f src/main/docker/Dockerfile.jvm -t isax0102/quarkus-api-jvm .
           docker push isax0102/quarkus-api-jvm
 
       - name: Build and push database Docker image
