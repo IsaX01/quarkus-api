@@ -76,12 +76,9 @@ jobs:
           no-cache: true
 
       - name: Build and push database Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: src/main/docker
-          push: true
-          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/db:latest
-          no-cache: true
+        run: |
+          docker-compose -f src/main/docker/docker-compose.yaml build
+          docker-compose -f src/main/docker/docker-compose.yaml push
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
