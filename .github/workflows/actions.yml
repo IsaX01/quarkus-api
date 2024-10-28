@@ -68,12 +68,9 @@ jobs:
         run: gcloud auth configure-docker
 
       - name: Build and push application Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: src/main/docker
-          push: true
-          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/app:latest
-          no-cache: true
+        run: |
+          docker build -f src/main/docker/Dockerfile.jvm -t quarkus/quarkus-api-jvm .
+          docker push -f src/main/docker/Dockerfile.jvm -t quarkus/quarkus-api-jvm .
 
       - name: Build and push database Docker image
         run: |
