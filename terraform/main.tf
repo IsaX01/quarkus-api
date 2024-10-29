@@ -37,7 +37,7 @@ provider "kubernetes" {
 }
 
 # Desplegar la aplicación en Kubernetes
-resource "kubernetes_deployment" "app" {
+resource "kubernetes_deployment" "app-quarkus" {
   metadata {
     name = "app-deployment-quakus"
   }
@@ -67,7 +67,7 @@ resource "kubernetes_deployment" "app" {
   }
 }
 
-resource "kubernetes_service" "app_service" {
+resource "kubernetes_service" "app_service"_quarkus {
   metadata {
     name = "app-service-quakus"
   }
