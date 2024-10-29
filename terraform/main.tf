@@ -37,7 +37,7 @@ provider "kubernetes" {
 }
 
 # Desplegar la aplicación en Kubernetes
-resource "kubernetes_deployment" "app-quarkus" {
+resource "kubernetes_deployment" "app_quarkus" {
   metadata {
     name = "app-deployment-quakus"
   }
@@ -96,7 +96,7 @@ resource "google_sql_database_instance" "db_instance" {
   region           = var.region
 
   settings {
-    tier = "db-perf-optimized-N-2"
+    tier = "db-f1-micro"
   }
 }
 
