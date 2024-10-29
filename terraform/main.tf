@@ -94,13 +94,14 @@ resource "google_sql_database_instance" "db_instance" {
   name             = "isax01"
   database_version = "POSTGRES_12"
   region           = var.region
+  edition          = "ENTERPRISE_PLUS"
 
   lifecycle {
     prevent_destroy = true
   }
 
   settings {
-    tier = "db-f1-micro"
+    tier = "db-custom-2-7680"
   }
 }
 
