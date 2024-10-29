@@ -100,7 +100,7 @@ resource "google_sql_database_instance" "db_instance" {
   }
 
   settings {
-    tier = "db-custom-2-7680"
+    tier = "db-perf-optimized-N-2"
   }
 }
 
