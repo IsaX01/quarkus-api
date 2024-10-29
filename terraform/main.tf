@@ -67,7 +67,7 @@ resource "kubernetes_deployment" "app-quarkus" {
   }
 }
 
-resource "kubernetes_service" "app_service"_quarkus {
+resource "kubernetes_service" "app_service_quarkus" {
   metadata {
     name = "app-service-quakus"
   }
