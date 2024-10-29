@@ -14,4 +14,5 @@ variable "zone" {
 
 variable "db_password" {
   description = "isax"
+  sensitive = true
 }
